@@ -1,0 +1,75 @@
+#include <stdio.h>
+int top=-1,item,max,stack[100];
+void push()
+{
+    
+    if(top==max-1)
+    {
+        printf("-------Stack Overflow-------\n");
+    }
+    else
+    {
+        printf("Enter element to be inserted\t");
+        scanf("%d",&item);
+        top++;
+        stack[top]=item;
+    }
+}
+void pop()
+{
+    if(top==-1)
+        printf("------Stack Underflow-------\n");
+    else{
+        printf("\nThe element popped is %d\n",stack[top]);
+        top--;
+    }
+}
+void display()
+{
+    if(top==-1)
+        printf("--------Stack is empty--------\n");
+    else{
+        for(int i=top;i>=0;i--)
+        {
+            printf(" %d\n",stack[i]);
+        }
+    }
+}
+
+int main(){
+    int item,n;
+   printf("Enter the size of the stack\t");
+    scanf("%d",&max);
+    printf("Enter your choice\n1.push\n2.pop\n3.display\n4.exit\n");
+    do
+    {
+        printf(" \nYOUR CHOICE:\t");
+        scanf("%d",&n);
+        switch (n)
+        {
+            case 1:
+            {
+                push();
+                break;
+            }
+            case 2:
+            {
+                pop(); break;
+            }
+            case 3:
+            {
+                display(); break;
+            }
+            case 4:
+            {
+                printf("---------EXIT--------\n");
+                break;
+            }
+            default:             
+            printf("Enter valid choice\n");
+            
+         }
+    } while (n != 4);
+
+return 0;
+}
