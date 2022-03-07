@@ -21,7 +21,7 @@ void insert(int val){
 //delete
 void delete()
 {
-    //front front  greater than rear means no elements after that
+    //front  greater than rear means no elements after that
     if(front==-1 || front>rear)
     {
         printf("----QUEUE UNDERFLOW---\n");
