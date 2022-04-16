@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<ctype.h>
+#include<string.h>
+char s[50];
+int top=-1;
+
+void push(char element)
+{
+    s[++top]=element;
+}
+
+int pop()
+{
+     return s[top--];
+}
+
+int precedence(char ele)
+{
+    switch(ele)
+    {
+       case '#':
+        return 0;
+       case '(':
+        return 1;
+       case ')':
+        return 2;
+       case '+':
+       case '-':
+        return 3;
+       case '*':
+       case '/':
+        return 4;
+    }
+}
+
+void inTopo(char *infix,char *postfix)
+{
+    char ch,ele;
+    int i=0,j=0;
+    push('#');
+    while ((ch=infix[i++])!='\n')
+    {       
+        if(ch=='(')
+            push(ch);
+        else if(ch==')')
+          {
+
+              while((ch=s[top])!='(')
+                postfix[j++]=pop();
+              ele=pop();
+          }  
+        else if(isalnum(ch))
+            postfix[j++]=ch;
+        else 
+        {
+            while (precedence(ch)<=precedence(s[top]))
+            {
+                postfix[j++]=pop();
+            }
+            push(ch);
+            
+        }
+        
+    }
+    while (s[top]!='#')
+    {
+        postfix[j++]=pop();
+    }
+    postfix[j]=0;
+     
+    
+}
+void main()
+{
+    char inf[50],postf[50];
+    printf("Enter the expression");
+    fgets(inf,50,stdin);
+    inTopo(inf,postf);
+    printf("postfix exp is %s",postf);
+  
+}
