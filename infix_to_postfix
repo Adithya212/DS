@@ -1,9 +1,26 @@
 #include<stdio.h>
 #include<ctype.h>
-#include<string.h>
 char s[50];
 int top=-1;
 
+void removeSpace(char *source)
+{
+    char *i=source;
+    char *j=source;
+    while (*j!=0)
+    {
+        *i=*j++;
+        if(*i!=' ')
+        {
+            *i++;
+        
+        }
+           
+  
+        
+    }
+    *i=0;
+}
 void push(char element)
 {
     s[++top]=element;
@@ -70,12 +87,65 @@ void inTopo(char *infix,char *postfix)
      
     
 }
+int eval(char * postfix)
+{
+    int op1,op2,i=0;
+    char ch;
+    while ((ch=postfix[i++])!=0)
+    {
+          
+    if (isdigit(ch))
+    {
+        push(ch-'0');
+    }
+    else
+    {
+        op1=pop();
+        op2=pop();
+        switch (ch)
+        {
+        case '+':
+            push(op1+op2);
+            break;
+        case '-':
+            push(op2-op1);
+            break;
+        case '*':
+            push(op2*op1);
+            break;
+        case '/':
+
+
+            push(op2/op1);
+            break;
+        case '^':
+            push(op2^op1);
+            break;
+        
+        
+        default:
+            break;
+        }
+    }
+   
+    }
+  
+     return s[top];
+}
 void main()
 {
     char inf[50],postf[50];
+    int res;
     printf("Enter the expression");
     fgets(inf,50,stdin);
+    removeSpace(inf);
+    printf("infix is %s",inf);
+
     inTopo(inf,postf);
-    printf("postfix exp is %s",postf);
-  
+     printf("pfix exprerssionn  is :   %s",postf);
+    
+    top=-1;
+    res=eval(postf);
+    printf("\neval is  is:   %d",res);
+    
 }
